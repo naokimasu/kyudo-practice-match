@@ -48,7 +48,7 @@ select[name='opponent'] {
     transition: 0.4s;
 }
 
-select[name='NumOfPeople'] {
+select[name='num_people'] {
     font-size: large;
     border: 2px solid #dddddd;
     background: #eeeeee;

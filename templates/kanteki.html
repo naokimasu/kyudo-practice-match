@@ -11,7 +11,7 @@
         <tbody>
             {% for row in range(4) %}
             <tr class="hit-tr">
-                {% for col in range(nop) %}
+                {% for col in range(num_people) %}
                 <td class="cell">
                 </td>
                 {% endfor %}
@@ -22,7 +22,7 @@
 
     <table class="ite-table">
         <tr class="ite">
-        {% for i in range(nop, 0, -1) %}
+        {% for i in range(num_people, 0, -1) %}
             <td class="ite-number">{{ i }}</td>
         {% endfor %}
     </table>

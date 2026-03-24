@@ -1,10 +1,10 @@
-const NumOfPeople = document.getElementById('NumOfPeople');
+const num_people = document.getElementById('num_people');
 const highHit = document.getElementById('highHit');
 const lowHit = document.getElementById('lowHit');
 
 function updateHitRange() {
 
-    const selectedValue = NumOfPeople.value;
+    const selectedValue = num_people.value;
     let max = 0;
     if (selectedValue === "4") {
         max = 16;
@@ -45,7 +45,7 @@ function updateHitRange() {
 }
 
 // 変更時
-NumOfPeople.addEventListener('change', updateHitRange);
+num_people.addEventListener('change', updateHitRange);
 
 lowHit.addEventListener("change", () => {
     if (lowHit.value > highHit.value) {

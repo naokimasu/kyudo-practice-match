@@ -23,17 +23,17 @@
             <label for="mode">リアルモード</label>
         </div><br>
         
-        <select name="NumOfPeople" id="NumOfPeople" required>
+        <select name="num_people" id="num_people" required>
             <button>
                 <selectedcontent></selectedcontent>
             </button>
             {% for i in range(4,7) %}
-            <option value="{{ i }}" {% if i == num_of_people %}selected{% endif %}>
+            <option value="{{ i }}" {% if i == num_people %}selected{% endif %}>
                 {{ i }}
             </option>
             {% endfor %}
         </select>
-        <label for="NumOfPeople">人立ち</label><br><br>
+        <label for="num_people">人立ち</label><br><br>
 
         <label for="opponent">
         相手校を選択してください
@@ -56,7 +56,7 @@
         <div class="hit">
             <div class="lowHit">
                 <select name="lowHit" id="lowHit" required>
-                    {% for i in range(cell_num+1) %}
+                    {% for i in range(total_shots+1) %}
                     <option value="{{ i }}" {% if i == lowHit %}selected{% endif %}>
                         {{ i }}
                     </option>
@@ -69,7 +69,7 @@
                     <button>
                         <selectedcontent></selectedcontent>
                     </button>
-                    {% for i in range(cell_num+1) %}
+                    {% for i in range(total_shots+1) %}
                     <option value="{{ i }}" {% if i == highHit %}selected{% endif %}>
                         {{ i }}
                     </option>
@@ -94,5 +94,5 @@
 </div>
 {% endblock %}
 {% block script %}
-<script src="{{ url_for('static', filename='NumOfPeople.js') }}"></script>
+<script src="{{ url_for('static', filename='num_people.js') }}"></script>
 {% endblock %}
