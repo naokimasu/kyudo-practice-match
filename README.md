@@ -11,5 +11,5 @@
 pip install -r requirements.txt
 python app.py
 
-こちらのURLからご利用いただけます
-kyudo-test.onrender.com/
+こちらのURLからご利用いただけます。
+https://kyudo-test.onrender.com/
