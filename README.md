@@ -12,4 +12,4 @@ pip install -r requirements.txt
 python app.py
 
 こちらのURLからご利用いただけます。
-https://kyudo-test.onrender.com/
+https://kyudo-practice-match.onrender.com/
