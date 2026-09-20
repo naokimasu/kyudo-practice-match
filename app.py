@@ -75,16 +75,16 @@ def kanteki():
     }
 
     session["data"] = data
-    print(session)
 
-    def save_json(data):    
-        with open('static/data.json', 'w', encoding='utf-8') as f:
-            json.dump(data,f, indent=4, ensure_ascii=False)
-    
-    save_json(data)
-    # 要修正
-
-    return render_template("kanteki.html", opponent=opponent, num_people=num_people, res=res, hit=hit)
+    return render_template(
+        "kanteki.html",
+        opponent=opponent,
+        num_people=num_people,
+        res=res,
+        hit=hit,
+        mode=mode,
+        display_time=display_time
+    )
     
 @app.route("/kyousya", methods=["GET", "POST"])
 def kyousya():
@@ -93,10 +93,20 @@ def kyousya():
     num_people = data["num_people"]
     max_hit = int(data["total_shots"]/2) #2本競射
     min_hit = int(max_hit/2)
+    mode = data["mode"]
+    display_time = data["display_time"]
 
     res, hit = make_result(min_hit, max_hit, max_hit)
     
-    return render_template("kyousya.html", opponent=opponent, num_people=num_people, res=res, hit=hit)
+    return render_template(
+        "kyousya.html",
+        opponent=opponent,
+        num_people=num_people,
+        res=res,
+        hit=hit,
+        mode=mode,
+        display_time=display_time
+    )
 
 @app.route("/kyousya2", methods=["GET", "POST"])
 def kyousya2():
@@ -105,10 +115,20 @@ def kyousya2():
     num_people = data["num_people"]
     max_hit = int(data["total_shots"]/4) #1本競射
     min_hit = int(max_hit/2)
+    mode = data["mode"]
+    display_time = data["display_time"]
 
     res, hit = make_result(min_hit, max_hit, max_hit)
     
-    return render_template("kyousya2.html", opponent=opponent, num_people=num_people, res=res, hit=hit)
+    return render_template(
+        "kyousya2.html",
+        opponent=opponent,
+        num_people=num_people,
+        res=res,
+        hit=hit,
+        mode=mode,
+        display_time=display_time
+    )
 
 def make_result(min_hit, max_hit, total_shots):
     # 的中数をランダムに決める

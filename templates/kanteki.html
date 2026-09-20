@@ -37,8 +37,12 @@
 
 {% endblock %}
 {% block script %}
-<script>
-    const res = JSON.parse('{{ res | tojson }}');
+<script id="app-data" type="application/json">
+    {{ {
+        "res": res,
+        "mode": mode,
+        "display_time": display_time
+    } | tojson }}
 </script>
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 {% endblock %}

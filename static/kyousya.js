@@ -1,22 +1,19 @@
-fetch("/static/data.json")
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        console.log(data.mode);
+const appData = JSON.parse(
+    document.getElementById("app-data").textContent
+);
 
-        if (data.mode === "on") {
-            realMode(data.display_time);
-        } else {
-            nomalMode();
-        }
-    })
-    .catch(error => {
-        console.error("JSON読み込みエラー:", error);
-    });
+const res = appData.res;
+const mode = appData.mode;
+const displayTime = appData.display_time;
 
 const cells = Array.from(document.querySelectorAll(".cell"));
-
 const lenRes = res.length;
+
+if (mode === "on") {
+    realMode(displayTime);
+} else {
+    nomalMode();
+}
 
 console.log(res)
 function realMode(displayTime) {
@@ -58,6 +55,7 @@ function nomalMode() {
 
 function totalResView() {
     const totalRes = document.getElementById('totalRes');
+    const toKyousya = document.getElementById("toKyousya");
     totalRes.style.opacity = 1
     toKyousya.style.opacity = 1
 }

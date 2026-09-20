@@ -1,24 +1,20 @@
-fetch("/static/data.json")
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        console.log(data.mode);
+const appData = JSON.parse(
+    document.getElementById("app-data").textContent
+);
 
-        if (data.mode === "on") {
-            realMode(data.display_time);
-        } else {
-            nomalMode();
-        }
-    })
-    .catch(error => {
-        console.error("JSON読み込みエラー:", error);
-    });
+const res = appData.res;
+const mode = appData.mode;
+const displayTime = appData.display_time;
 
 const cells = Array.from(document.querySelectorAll(".cell"));
-console.log(cells)
 const lenRes = res.length;
 
-console.log(res)
+if (mode === "on") {
+    realMode(displayTime);
+} else {
+    nomalMode();
+}
+
 function realMode(displayTime) {
     console.log("realMode")
     for (let i = 0; i < lenRes; i++) { 
