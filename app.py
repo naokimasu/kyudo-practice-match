@@ -86,7 +86,7 @@ def kanteki():
         display_time=display_time
     )
     
-@app.route("/kyousya", methods=["GET", "POST"])
+@app.route("/kyousya", methods=["POST"])
 def kyousya():
     data = session.get("data")
     opponent = data["opponent"]
@@ -108,7 +108,7 @@ def kyousya():
         display_time=display_time
     )
 
-@app.route("/kyousya2", methods=["GET", "POST"])
+@app.route("/kyousya2", methods=["POST"])
 def kyousya2():
     data = session.get("data")
     opponent = data["opponent"]

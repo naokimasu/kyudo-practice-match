@@ -29,7 +29,11 @@
 
     <div class="tRtK">
         <h2 id="totalRes" class="totalRes">結果：{{ hit }}中</h2>
-        <h2 id="toKyousya" class="toKyousya"><a href="{{ url_for('kyousya') }}">競射</a></h2>
+        <h2 id="toKyousya" class="toKyousya">
+            <form action="{{ url_for('kyousya') }}" method="post">
+                <button type="submit">競射</button>
+            </form>
+        </h2>
     </div>
 </div>
 
