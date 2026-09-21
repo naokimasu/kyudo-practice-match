@@ -1,399 +1,617 @@
+/* =========================================================
+   kyudo-practice-match
+   完全版 Responsive CSS
+   - スマホ / タブレット / PC 対応
+   - <a> → <form><button> の競射ボタン対応
+   - TOP を常に画面下部に表示
+   - 表の外枠・セル線・数字間の線幅を統一
+   ========================================================= */
 
+/* ---------- 共通設定 ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --page-max-width: 1100px;
+    --form-max-width: 720px;
+    --result-max-width: 1000px;
+
+    --page-padding-x: clamp(12px, 3vw, 32px);
+    --page-padding-y: clamp(8px, 2vh, 20px);
+
+    /* ダークモード固定 */
+    color-scheme: dark;
+
+    --page-bg: #121212;
+    --text-color: #f2f2f2;
+
+    --border-color: #e5e5e5;
+    --table-border-width: 2px;
+
+    --control-border: #555;
+    --control-bg: #252525;
+    --control-text: #f2f2f2;
+
+    --button-bg: #e8e8e8;
+    --button-fg: #151515;
+
+    --subtle-border: #4a4a4a;
+    --top-bg: rgba(30, 30, 30, 0.96);
+    --top-border: #666;
+    --top-shadow: rgba(0, 0, 0, 0.35);
+
+    --radius: 12px;
+}
 
 html {
-  /* モダンなWebアプリの推奨スタック */
-    font-family: "Inter", "Noto Sans JP", "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    width: 100%;
+    min-height: 100%;
+    font-family:
+        "Inter",
+        "Noto Sans JP",
+        "Helvetica Neue",
+        Arial,
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        Meiryo,
+        sans-serif;
     font-size: 100%;
-    width: 95%;
-    height: auto;
-    margin: auto;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    padding: 10px;
+    width: 100%;
+    min-height: 100dvh;
     margin: 0;
+    padding:
+        var(--page-padding-y)
+        var(--page-padding-x)
+        calc(64px + env(safe-area-inset-bottom));
+    background: var(--page-bg);
+    color: var(--text-color);
+    overflow-x: hidden;
 }
 
+main {
+    width: min(100%, var(--page-max-width));
+    margin-inline: auto;
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+button,
+select,
+input[type="checkbox"],
+input[type="radio"] {
+    touch-action: manipulation;
+}
+
+button {
+    cursor: pointer;
+}
+
+select,
+input {
+    accent-color: #9ecbff;
+}
+
+select option {
+    background: var(--control-bg);
+    color: var(--control-text);
+}
+
+a {
+    color: inherit;
+}
+
+/* ---------- フォーカス表示 ---------- */
+select:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(0, 100, 220, 0.35);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   TOPページ / 設定画面
+   ========================================================= */
+
 .title {
-    font-size: 1.5em;
-    margin: 10px 0;
+    margin: 8px 0 16px;
+    font-size: clamp(1.35rem, 4vw, 2rem);
+    line-height: 1.3;
 }
 
 .parent {
-    margin: auto;
+    width: min(100%, var(--form-max-width));
+    margin-inline: auto;
 }
 
-form {
-    margin: auto;
-}
-
-/* label[for="mode"] {
-    margin-left: 8px;
-} */
-
-#mode {
-    margin-right: 8px;
-}
-
-.kanteki {
-    margin: auto;
-}
-
-select[name='opponent'] {
-    font-size: large;
-    border: 2px solid #dddddd;
-    background: #eeeeee;
+.parent form {
     width: 100%;
-    padding: 5px;
-    transition: 0.4s;
+    margin: 0;
 }
 
-select[name='num_people'] {
-    font-size: large;
-    border: 2px solid #dddddd;
-    background: #eeeeee;
-    width: 25%;
-    padding: 5px;
-    transition: 0.4s;
+/* リアルモード */
+#mode {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0 8px 0 2px;
+    vertical-align: middle;
 }
 
+/* セレクト共通 */
+select {
+    min-height: 44px;
+    border: 1px solid var(--control-border);
+    border-radius: 8px;
+    background: var(--control-bg);
+    color: var(--control-text);
+    padding: 7px 10px;
+}
+
+/* 相手校 */
+select[name="opponent"] {
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* 人数 */
+select[name="num_people"] {
+    width: 7rem;
+    max-width: 40%;
+    font-size: 1rem;
+}
+
+/* 的中数 */
 .hit {
     display: flex;
-    align-items: center;     /* 縦中央揃え */
-    justify-content: center; /* 横中央 */
-    gap: 10px;    
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.lowHit,
+.highHit {
+    margin: 0;
 }
 
 .lowHit select,
 .highHit select {
-    width: 80px;  /* 固定幅にするのがポイント */
-    font-size: large;
-    border: 2px solid #dddddd;
-    background: #eeeeee;
-    padding: 5px;
-    transition: 0.4s;
+    width: 84px;
+    max-width: 30vw;
+    font-size: 1rem;
 }
 
-.start-button {
-    width: 100%;
-    text-align: center;
-    color: #eeeeee;
-    margin-top: 30px;
-    margin-bottom: 50px;
-    padding: 10px;
-    background-color: rgb(56, 56, 56);
-    border: none;
-    border-radius: 15px;
-    font-size: 1.25em;
+p[name="tekichuu-p"] {
+    width: auto;
+    margin: 0;
 }
 
-/* main {
-    margin-left: 10%;
-} */
-
-input[type='checkbox'] {
-    transform: scale(2.0);
-}
-
-/* .switch {
-    display: flex;
-    align-items: center;
-} */
-
-p {
-    width: fit-content;
-    margin-left: auto;
-    margin-right: 0;
-}
-
-p[name='tekichuu-p'] {
-    margin: auto 0px;
-} 
-
-.lowHit {
-    margin: auto;
-}
-
-.highHit {
-    margin: auto;
-}
-
-/* .switch-button {
-    width: fit-content;
-    position: relative;
-    margin-left: 0;
-    margin-right: auto;
-} */
-
-/* input[type='checkbox'] {
-    position: absolute;
-    width: 0;
-    height: 0;
-} */
-
-/* input:checked ~ .circle {
-    transform: translateX(100%);
-    background-color: rgb(13, 169, 222);
-} */
-
-/* input:checked ~ .base {
-    background-color: rgb(219, 234, 254);
-    transform: 0.5s;
-} */
-
-/* .circle {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    background-color: white;
-    transition: 0.5s;
-} */
-
-/* .base {
-    width: 56px;
-    border-radius: 16px;
-    height: 32px;
-    background-color: #ddd;
-} */
-
-.hit-table {
-    margin: auto;
-    border-collapse: collapse;
-    border: solid black 1px;
-    width: 90%;
-    max-width: 360px;
-    height: auto;
-}
-
-.ite-table {
-    margin: auto;
-    border-collapse: collapse;
-    border: solid black 1px;
-    border-top: none;
-    width: 90%;
-    max-width: 360px;
-    height: auto;
-}
-
-.cell {
-    border: solid 1px;
-    height: 60px;
-    text-align: center;
-    padding: 0;
-    font-size: 2em;
-    opacity: 1;
-}
-
-.ite {
-    text-align: center;
-    font-size: 1.5em;
-}
-
-h2 {
-    text-align: center;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-/* .opponent {
-    text-align: center;
-    margin-top: 0px;
-    margin-bottom: 0px;
-} */
-
-/* .result {
-    text-align: center;
-    width: 100%;
-    margin-top: 0;
-} */
-
-.return {
-    margin-top: 50%;
-    font-size: 1.5em;
-}
-
-.tRtK {
-    display: flex;
-    width: 80%;
-    margin: auto;
-}
-
-.totalRes {
-    opacity: 0;
-    width: 50%;
-    margin: auto;
-}
-
-.toKyousya {
-    opacity: 0;
-    width: 30%;
-    margin: auto;
-}
-
+/* 行射速度 */
 .displaySpeed {
-    display: flex;
-    justify-content: space-around; /* 等間隔に配置 */
-    width: 300px; /* 適宜調整 */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
 }
 
 .displaySpeed label {
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 6px 4px;
+    border: 1px solid var(--subtle-border);
+    border-radius: 8px;
+    background: #1b1b1b;
 }
 
-@media screen and (min-width: 1000px) {
-	/* 481px以上に適用されるCSS（タブレット用） */
+.displaySpeed input[type="radio"] {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0;
+}
+
+/* 行射開始 */
+.start-button {
+    width: 100%;
+    min-height: 48px;
+    margin: 24px 0 16px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--button-bg);
+    color: var(--button-fg);
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    font-weight: 700;
+}
+
+/* =========================================================
+   結果画面 共通
+   ========================================================= */
+
+.kanteki,
+.kyousya {
+    width: min(100%, var(--result-max-width));
+    margin-inline: auto;
+    padding-top: clamp(12px, 2.5dvh, 28px);
+    padding-bottom: 8px;
+}
+
+.opponent,
+.totalRes,
+.toKyousya {
+    text-align: center;
+}
+
+.opponent {
+    margin: 0 0 clamp(4px, 1dvh, 10px);
+    font-size: clamp(1.5rem, 5vw, 2.8rem);
+    line-height: 1.25;
+}
+
+/* ---------- 的中表 ---------- */
+.hit-table,
+.ite-table {
+    width: 100%;
+    margin-inline: auto;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* 外枠 */
+.hit-table {
+    border: var(--table-border-width) solid var(--border-color);
+}
+
+.ite-table {
+    border: var(--table-border-width) solid var(--border-color);
+    border-top: 0;
+}
+
+/* 的中セル */
+.cell {
+    border: var(--table-border-width) solid var(--border-color);
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1;
+    opacity: 1;
+}
+
+/* 通常戦：4段 */
+.kanteki .cell {
+    height: clamp(40px, 7.8dvh, 82px);
+    font-size: clamp(1.7rem, 7vw, 3.5rem);
+}
+
+/* 競射：1〜2段 */
+.kyousya .cell {
+    height: clamp(58px, 13dvh, 120px);
+    font-size: clamp(2rem, 8vw, 4rem);
+}
+
+/* 立ち順 */
+.ite {
+    height: clamp(26px, 4dvh, 40px);
+    text-align: center;
+    font-size: clamp(1rem, 4vw, 1.8rem);
+}
+
+/* 数字の間の線も他と同じ太さ */
+.ite-number {
+    border-left: var(--table-border-width) solid var(--border-color);
+    border-right: var(--table-border-width) solid var(--border-color);
+    padding: 2px;
+    text-align: center;
+}
+
+/* =========================================================
+   結果・競射ボタン
+   ========================================================= */
+
+.tRtK {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: clamp(6px, 1dvh, 12px) auto 0;
+}
+
+.totalRes,
+.toKyousya {
+    width: 100%;
+    margin: 0;
+    font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+    line-height: 1.25;
+    text-align: center;
+}
+
+.totalRes {
+    opacity: 0;
+}
+
+.toKyousya {
+    opacity: 0;
+}
+
+/* <a> から <form><button> に変更した競射ボタン */
+.toKyousya form {
+    width: 100%;
+    margin: 0;
+}
+
+.toKyousya button {
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--button-bg);
+    color: var(--button-fg);
+    font-weight: 700;
+}
+
+/* =========================================================
+   TOPリンク
+   画面下部に固定してスクロール不要
+   ========================================================= */
+
+.return {
+    position: fixed;
+    left: 50%;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    z-index: 100;
+
+    /* hit-table / ite-table と同じ横幅にして、左端を揃える */
+    width: min(
+        calc(100vw - (2 * var(--page-padding-x))),
+        var(--result-max-width)
+    );
+
+    margin: 0;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: flex-start;
+    font-size: 0.85rem;
+}
+
+.return a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    min-height: 28px;
+    padding: 5px 12px;
+    border: 1px solid var(--top-border);
+    border-radius: 999px;
+    background: var(--top-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 2px 8px var(--top-shadow);
+}
+
+/* =========================================================
+   小さいスマホ
+   ========================================================= */
+
+@media screen and (max-width: 420px) {
     body {
-        margin: auto;
-        font-size: 150%;
+        padding-inline: 10px;
     }
 
-    form {
-        margin: auto;
+    .displaySpeed {
+        gap: 5px;
     }
 
-    select {
-        /* font-size: large; */
-        border: 2px solid #dddddd;
-        background: #eeeeee;
-        width: auto;
-        padding: 5px 10px;
-        transition: 0.4s;
+    .displaySpeed label {
+        font-size: 0.9rem;
     }
 
-    p[name='tekichuu-p'] {
-        margin: auto 0px;
-    } 
-
-    .lowHit {
-        margin: auto;
+    .tRtK {
+        gap: 8px;
     }
 
-    .highHit {
-        margin: auto;
+    .toKyousya button {
+        padding-inline: 8px;
     }
-
-    .start-button {
-        width: 100%;
-        text-align: center;
-        color: #eeeeee;
-        margin-top: 30px;
-        padding: 15px;
-        background-color: rgb(56, 56, 56);
-        border: none;
-        border-radius: 15px;
-    }
-
-    /* main {
-        margin-left: 10%;
-    } */
-
-    /* .switch {
-        display: flex;
-        align-items: center;
-    } */
-
-    p {
-        width: fit-content;
-        margin-left: auto;
-        margin-right: 0;
-    }
-
-    /* .switch-button {
-        width: fit-content;
-        position: relative;
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    input[type='checkbox'] {
-        position: absolute;
-        width: 0;
-        height: 0;
-    }
-
-    input:checked ~ .circle {
-        transform: translateX(100%);
-        background-color: rgb(13, 169, 222);
-    }
-
-    input:checked ~ .base {
-        background-color: rgb(219, 234, 254);
-        transform: 0.5s;
-    }
-
-    .circle {
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        width: 24px;
-        height: 24px;
-        border-radius: 12px;
-        background-color: white;
-        transition: 0.5s;
-    }
-
-    .base {
-        width: 56px;
-        border-radius: 16px;
-        height: 32px;
-        background-color: #ddd;
-    } */
-
-    .hit-table {
-        margin: auto;
-        border-collapse: collapse;
-        border: solid black 3px;
-        /* width: 90%; */
-        max-width: 1000px;
-        height: auto;
-    }
-
-    .ite-table {
-        margin: auto;
-        border-collapse: collapse;
-        border: solid black 3px;
-        border-top: none;
-        width: 90%;
-        max-width: 1000px;
-        height: auto;
 }
 
-    .cell {
-        border: solid 3px;
-        height: 140px;
-        text-align: center;
-        vertical-align: middle;
-        padding: 0px;
-        font-size: 4em;
-        opacity: 1;
+/* =========================================================
+   縦幅が小さいスマホ / 横向き
+   ========================================================= */
+
+@media screen and (max-height: 620px) {
+    body {
+        padding-top: 4px;
+    }
+
+    .kanteki,
+    .kyousya {
+        padding-top: 40px;
+    }
+
+    .opponent {
+        margin-bottom: 4px;
+        font-size: 1.5rem;
+    }
+
+    .kanteki .cell {
+        height: clamp(32px, 7dvh, 46px);
+        font-size: clamp(1.4rem, 6vh, 2.2rem);
+    }
+
+    .kyousya .cell {
+        height: clamp(44px, 13dvh, 72px);
+        font-size: clamp(1.6rem, 8vh, 2.8rem);
     }
 
     .ite {
-        text-align: center;
-        font-size: 2em;
+        height: 26px;
+        font-size: 0.95rem;
     }
 
-    h2 {
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 2em;
+    .tRtK {
+        margin-top: 5px;
     }
 
-    /* .opponent {
-        text-align: center;
-        margin-top: 0px;
-        margin-bottom: 10px;
-        font-size: 2em;
-    } */
+    .totalRes,
+    .toKyousya {
+        font-size: 1.25rem;
+    }
+
+    .toKyousya button {
+        min-height: 25px;
+        padding-block: 5px;
+    }
 
     .return {
-        margin-top: 60%;
-        font-size: 2em;
+        font-size: 0.8rem;
+    }
+
+    .return a {
+        min-width: 58px;
+        min-height: 26px;
+        padding: 4px 10px;
+    }
+}
+
+/* =========================================================
+   タブレット
+   ========================================================= */
+
+@media screen and (min-width: 768px) {
+    body {
+        padding-inline: clamp(24px, 5vw, 56px);
+    }
+
+    .parent {
+        width: min(100%, 760px);
+    }
+
+    select[name="opponent"] {
+        font-size: 1.1rem;
+    }
+
+    select[name="num_people"],
+    .lowHit select,
+    .highHit select {
+        font-size: 1.1rem;
+    }
+
+    .displaySpeed label {
+        font-size: 1.05rem;
+    }
+
+    .hit-table,
+    .ite-table {
+        width: min(92vw, 760px);
+    }
+
+    .kanteki .cell {
+        height: clamp(58px, 9dvh, 92px);
+        font-size: clamp(2.5rem, 6vw, 3.8rem);
+    }
+
+    .kyousya .cell {
+        height: clamp(90px, 16dvh, 150px);
+        font-size: clamp(3rem, 7vw, 4.5rem);
+    }
+
+    .tRtK {
+        width: min(92vw, 760px);
+    }
+
+    .return {
+        width: min(92vw, 760px);
+        bottom: max(14px, env(safe-area-inset-bottom));
+    }
+
+    .return a {
+        min-width: 68px;
+        font-size: 0.9rem;
+    }
+}
+
+/* =========================================================
+   PC
+   ========================================================= */
+
+@media screen and (min-width: 1024px) {
+    :root {
+        --table-border-width: 3px;
+    }
+
+    body {
+        font-size: 1.05rem;
+    }
+
+    .parent {
+        width: min(100%, 800px);
+    }
+
+    .hit-table,
+    .ite-table {
+        width: min(78vw, 900px);
+    }
+
+    .return {
+        width: min(78vw, 900px);
+    }
+
+    .kanteki .cell {
+        height: clamp(66px, 9.5dvh, 100px);
+        font-size: clamp(3rem, 5vw, 4.2rem);
+    }
+
+    .kyousya .cell {
+        height: clamp(105px, 17dvh, 165px);
+        font-size: clamp(3.5rem, 6vw, 5rem);
+    }
+
+    .ite {
+        font-size: 1.7rem;
+    }
+
+    .tRtK {
+        width: min(78vw, 900px);
+        grid-template-columns: 1fr 220px;
+    }
+
+    .totalRes {
+        text-align: left;
+        padding-left: 12px;
+    }
+
+    .toKyousya button {
+        min-height: 48px;
+    }
+}
+
+/* =========================================================
+   ワイドPC
+   ========================================================= */
+
+@media screen and (min-width: 1440px) {
+    .hit-table,
+    .ite-table,
+    .tRtK,
+    .return {
+        width: min(70vw, 960px);
     }
 }

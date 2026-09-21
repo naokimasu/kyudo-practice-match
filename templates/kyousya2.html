@@ -6,7 +6,7 @@
 
 {% block contents %}
 <div class="kyousya">
-    <h2 class="opponent">{{ opponent }}</h2>
+    <h1 class="opponent">{{ opponent }}</h1>
     <table id="hit-table" class="hit-table">
         <tbody>
             <tr class="hit-tr">
@@ -26,12 +26,12 @@
     </table>
 
     <div class="tRtK">
-        <h2 id="totalRes" class="totalRes">結果：{{ hit }}中</h2>
-        <h2 id="toKyousya" class="toKyousya">
+        <h1 id="totalRes" class="totalRes">結果：{{ hit }}中</h1>
+        <h1 id="toKyousya" class="toKyousya">
             <form action="{{ url_for('kyousya2') }}" method="post">
                 <button type="submit">競射</button>
             </form>
-        </h2>
+        </h1>
     </div>
 </div>
 
