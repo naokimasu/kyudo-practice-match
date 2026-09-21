@@ -313,8 +313,7 @@ p[name="tekichuu-p"] {
 
 /* 数字の間の線も他と同じ太さ */
 .ite-number {
-    border-left: var(--table-border-width) solid var(--border-color);
-    border-right: var(--table-border-width) solid var(--border-color);
+    border: none;
     padding: 2px;
     text-align: center;
 }
@@ -443,7 +442,7 @@ p[name="tekichuu-p"] {
 
     .kanteki,
     .kyousya {
-        padding-top: 40px;
+        padding-top: 20px;
     }
 
     .opponent {
