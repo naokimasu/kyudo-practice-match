@@ -451,13 +451,8 @@ p[name="tekichuu-p"] {
     }
 
     .kanteki .cell {
-        height: clamp(32px, 7dvh, 46px);
-        font-size: clamp(1.4rem, 6vh, 2.2rem);
-    }
-
-    .kyousya .cell {
-        height: clamp(44px, 13dvh, 72px);
-        font-size: clamp(1.6rem, 8vh, 2.8rem);
+        height: clamp(52px, 11dvh, 70px);
+        font-size: clamp(1.6rem, 6.5vh, 2.5rem);
     }
 
     .ite {
