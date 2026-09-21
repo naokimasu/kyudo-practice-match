@@ -451,8 +451,8 @@ p[name="tekichuu-p"] {
     }
 
     .kanteki .cell {
-        height: clamp(48px, 10dvh, 64px);
-        font-size: clamp(1.5rem, 6vh, 2.4rem);
+        height: clamp(40px, 10dvh, 64px);
+        font-size: clamp(1.5rem, 10vh, 3.0rem);
     }
 
     .ite {
