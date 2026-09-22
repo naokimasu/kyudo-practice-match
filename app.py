@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session
 import random, json, os
 from flask_session import Session
 from opponents import opponents
+from game_logic import make_result
 
 app = Flask(__name__)
 # セッションを安全に使うために必要
@@ -129,25 +130,6 @@ def kyousya2():
         mode=mode,
         display_time=display_time
     )
-
-def make_result(min_hit, max_hit, total_shots):
-    # 的中数をランダムに決める
-    hit = random.randint(min_hit, max_hit)
-
-    # 最初は全部○にする
-    res = ["○"] * total_shots
-
-    # 外れ本数を計算
-    miss_count = total_shots - hit
-
-    # 外れにする位置をランダムに選ぶ
-    miss_positions = random.sample(range(total_shots), miss_count)
-
-    # 選ばれた位置を×にする
-    for position in miss_positions:
-        res[position] = "×"
-
-    return res, hit
 
 
 if __name__ == "__main__":
